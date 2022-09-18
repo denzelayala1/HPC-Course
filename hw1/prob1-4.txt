@@ -1,0 +1,3 @@
+Total Number of lines is 351
+The total residual count = 1.016e-02
+The total runtime = 85880.47
