@@ -9,6 +9,7 @@ using namespace std;
 
 uint32_t mbseries(complex<double> c){
     
+    // declaring max iterations and the complex number of interest
     std::complex<double> z(0,0);
     const int max_iter = 5000;
 
@@ -28,15 +29,17 @@ uint32_t mbseries(complex<double> c){
 
 void bit_mesh(int xpts,int ypts, vector<uint32_t> &mesh ){
 
-
+    //declare system bounds
     const short int xmin = -2;
     const short int xmax = 2;
     const short int ymin = -1;
     const short int ymax = 1;
 
+    //expand vector size to fit the complete dataset
     const int mesh_size = xpts * ypts;
     mesh.reserve(mesh_size);
     
+    //determine increment size and declare starting point
     double xinc = 1.0*(xmax - xmin)/(xpts - 1.0);
     double yinc = 1.0*(ymax - ymin)/(ypts - 1.0);
 
@@ -44,6 +47,7 @@ void bit_mesh(int xpts,int ypts, vector<uint32_t> &mesh ){
     double cur_x = -2.0;
     complex<double> c(cur_x,cur_y);
 
+    //loop through the mesh populating line by line in the x-direction
     for(int iy = 0; iy < ypts; ++iy){
 
         for(int ix = 0; ix < xpts; ++ix){
@@ -57,14 +61,13 @@ void bit_mesh(int xpts,int ypts, vector<uint32_t> &mesh ){
 
 int main(){
 
+    // instantiate vectors that will be used
     vector<uint32_t> low_res_mesh;
     vector<uint32_t> mid_res_mesh;
     vector<uint32_t> high_res_mesh;
-    //vector<uint32_t> ultra_res_mesh;
+
 
     // Call functions create mesh and output mesh into a textfile
-
-
     // Low resolution 10 x 10
     bit_mesh(10,10, low_res_mesh);
     ofstream low_fout("low_res_mesh.txt");
@@ -94,17 +97,6 @@ int main(){
     cout << "\nhigh resolution mesh size = ";
     cout << high_res_mesh.size() << endl;
 
-    
-    /*
-    // Ultra resolution 4000 x 4000
-    bit_mesh(4000,4000, ultra_res_mesh);
-    ofstream ultra_fout("ultra_res_mesh.txt");
-    for(const auto &i : ultra_res_mesh){
-        ultra_fout << i << "\n";
-    } 
-    cout << "\nultra resolution mesh size = ";
-    cout << ultra_res_mesh.size() << endl;
-   */
    
     return 0;
 }
