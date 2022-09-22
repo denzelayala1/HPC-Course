@@ -1,0 +1,8 @@
+#ignore all text, executables, and logs
+*.txt
+*.log
+*.exe
+
+# juptyer notebooks
+.ipynb_checkpoints/
+
