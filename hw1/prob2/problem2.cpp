@@ -59,6 +59,31 @@ void bit_mesh(int xpts,int ypts, vector<uint32_t> &mesh ){
     }
 }
 
+
+void area_calc(vector<uint32_t> &mesh ){
+
+    const int plot_range_area = 8;
+    uint32_t pix_tot = mesh.size();
+    uint32_t pix_converged = 0;
+    double area_pix;
+    double mb_area;
+
+    for(const auto &i : mesh){
+         
+         if(i==0){
+            pix_converged+=1;
+        }
+    } 
+
+    area_pix = (1.0 * pix_converged)/ pix_tot;
+    mb_area = 1.0 * plot_range_area * area_pix;
+
+    printf("Percentage of Pixels that converged = %.3f\n", area_pix);
+    printf("Area of Mandelbrot set = %.3f\n", mb_area);
+
+}
+
+
 int main(){
 
     // instantiate vectors that will be used
@@ -77,6 +102,7 @@ int main(){
     cout << "\nlow resolution mesh size = ";
     cout << low_res_mesh.size() << endl;
 
+    area_calc(low_res_mesh);
 
     // Mid resolution 100 x 100
     bit_mesh(100,100, mid_res_mesh);
@@ -86,7 +112,8 @@ int main(){
     } 
     cout << "\nmid resolution mesh size = ";
     cout << mid_res_mesh.size() << endl;
-
+    
+    area_calc(mid_res_mesh);
 
     // High resolution 1000 x 1000
     bit_mesh(1000,1000, high_res_mesh);
@@ -97,6 +124,7 @@ int main(){
     cout << "\nhigh resolution mesh size = ";
     cout << high_res_mesh.size() << endl;
 
+    area_calc(high_res_mesh);
    
     return 0;
 }
