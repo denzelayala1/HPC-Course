@@ -11,7 +11,7 @@ uint32_t mbseries(complex<double> c){
     
     // declaring max iterations and the complex number of interest
     std::complex<double> z(0,0);
-    const int max_iter = 5000;
+    const int max_iter = 10000;
 
     for(int i = 0; i < max_iter; i++){
     
@@ -70,7 +70,7 @@ int main(){
     // Call functions create mesh and output mesh into a textfile
     // Low resolution 10 x 10
     bit_mesh(10,10, low_res_mesh);
-    ofstream low_fout("low_res_mesh.txt");
+    ofstream low_fout("LOW_res.txt");
     for(const auto &i : low_res_mesh){
         low_fout << i << "\n";
     } 
@@ -80,7 +80,7 @@ int main(){
 
     // Mid resolution 100 x 100
     bit_mesh(100,100, mid_res_mesh);
-    ofstream mid_fout("mid_res_mesh.txt");
+    ofstream mid_fout("MID_res.txt");
     for(const auto &i : mid_res_mesh){
         mid_fout << i << "\n";
     } 
@@ -90,7 +90,7 @@ int main(){
 
     // High resolution 1000 x 1000
     bit_mesh(1000,1000, high_res_mesh);
-    ofstream high_fout("high_res_mesh.txt");
+    ofstream high_fout("HIGH_res.txt");
     for(const auto &i : high_res_mesh){
         high_fout << i << "\n";
     } 

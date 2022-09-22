@@ -10,7 +10,7 @@ using namespace std;
 uint32_t mbseries(complex<double> c){
     
     std::complex<double> z(0,0);
-    const int max_iter = 500;
+    const int max_iter = 4000;
 
     for(int i = 0; i < max_iter; i++){
     
@@ -57,54 +57,17 @@ void bit_mesh(int xpts,int ypts, vector<uint32_t> &mesh ){
 
 int main(){
 
-    vector<uint32_t> low_res_mesh;
-    vector<uint32_t> mid_res_mesh;
-    vector<uint32_t> high_res_mesh;
+    vector<uint32_t> ultra_res_mesh;
     //vector<uint32_t> ultra_res_mesh;
 
-    // Call functions create mesh and output mesh into a textfile
-
-
-    // Low resolution 10 x 10
-    bit_mesh(10,10, low_res_mesh);
-    ofstream low_fout("low_res_mesh.txt");
-    for(const auto &i : low_res_mesh){
-        low_fout << i << "\n";
-    } 
-    cout << "\nlow resolution mesh size = ";
-    cout << low_res_mesh.size() << endl;
-
-
-    // Mid resolution 100 x 100
-    bit_mesh(100,100, mid_res_mesh);
-    ofstream mid_fout("mid_res_mesh.txt");
-    for(const auto &i : mid_res_mesh){
-        mid_fout << i << "\n";
-    } 
-    cout << "\nmid resolution mesh size = ";
-    cout << mid_res_mesh.size() << endl;
-
-
-    // High resolution 1000 x 1000
-    bit_mesh(4000,4000, high_res_mesh);
-    ofstream high_fout("high_res_mesh.txt");
-    for(const auto &i : high_res_mesh){
-        high_fout << i << "\n";
-    } 
-    cout << "\nhigh resolution mesh size = ";
-    cout << high_res_mesh.size() << endl;
-
-    
-    /*
-    // Ultra resolution 4000 x 4000
-    bit_mesh(4000,4000, ultra_res_mesh);
+    // High resolution 10k x 10k
+    bit_mesh(10000, 10000, ultra_res_mesh);
     ofstream ultra_fout("ultra_res_mesh.txt");
     for(const auto &i : ultra_res_mesh){
         ultra_fout << i << "\n";
     } 
-    cout << "\nultra resolution mesh size = ";
+    cout << "\nUltra high resolution mesh size  = ";
     cout << ultra_res_mesh.size() << endl;
-   */
    
     return 0;
 }
