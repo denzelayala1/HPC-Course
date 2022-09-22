@@ -10,7 +10,7 @@ using namespace std;
 uint32_t mbseries(complex<double> c){
     
     std::complex<double> z(0,0);
-    const int max_iter = 5000;
+    const int max_iter = 500;
 
     for(int i = 0; i < max_iter; i++){
     
@@ -86,7 +86,7 @@ int main(){
 
 
     // High resolution 1000 x 1000
-    bit_mesh(1000,1000, high_res_mesh);
+    bit_mesh(4000,4000, high_res_mesh);
     ofstream high_fout("high_res_mesh.txt");
     for(const auto &i : high_res_mesh){
         high_fout << i << "\n";
