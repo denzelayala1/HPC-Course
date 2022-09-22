@@ -2,6 +2,7 @@
 *.txt
 *.log
 *.exe
+test*
 
 # juptyer notebooks
 .ipynb_checkpoints/
