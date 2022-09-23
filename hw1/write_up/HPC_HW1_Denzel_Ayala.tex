@@ -1,0 +1,80 @@
+\documentclass[12pt]{exam}
+\usepackage{amsthm}
+\usepackage{libertine}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage{siunitx}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{color, colortbl}
+\usepackage{amsbsy}
+
+
+
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{external}
+\tikzexternalize
+\graphicspath{ {./images/} }
+
+\newcommand{\class}{High Performance Computing 1} % This is the name of the course 
+\newcommand{\examnum}{Assignment 1: Write Up} % This is the name of the assignment
+\newcommand{\examdate}{\today} % This is the due date
+\newcommand{\timelimit}{}
+
+
+
+
+
+\begin{document}
+\pagestyle{plain}
+\thispagestyle{empty}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+\textbf{\class} & \textbf{Name:} & \textit{Denzel Ayala}\\ %Your name here instead, obviously 
+\textbf{\examnum} &&\\
+\textbf{\examdate} &&\\
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+% ---
+
+
+    \section*{\label{sec:prob1} Problem 1}
+
+        For the fourth part of this problem I obtained all the residues from the provided output file. For the cumulative run time I used a for loop in \textbf{\textit{awk}} to add up all the provided times in the second to last column. In the case of count I gave two possible values. The first was the total number of rows extracted from the original file. The second count given was the addition of all the residues. Below is an image containing the commands I entered as well as the contents of the files requested. My code is slightly different from what is being displayed. For the screenshot I limited the residues gotten by grep using \textit{\ldots(002)}. In the submitted code every residue is printed to the file and the output count and runtime reflect that. 
+
+
+        \includegraphics*[scale=0.3]{prob1.jpg}
+
+    \section*{\label{sec:prob2} Problem 2}
+
+        \begin{enumerate} %You can make lists!
+
+            \item F
+
+
+
+                HIGH SPIN AND LOW SPIN STATES INORGANIC CHEMISTRY USE GROUP THEORY AND CRYSTAL FIELD THEORY TO DESCRIBE THIS. HUNDS RULE VS PAULI EXCLUSION TUNABLILITY USING ....
+            \item We 
+
+            
+            \begin{gather*}
+                n \: \text{bits} = \left(x \: \text{bytes}\right) \left(y \: \frac{\text{bits}}{\text{byte}}\right) \\
+                \text{MAX\_RANGE} = 2^{n}
+            \end{gather*}
+
+            
+
+        \end{enumerate}
+    \section*{\label{sec:prob3} Problem 3}
+
+    \section*{\label{sec:prob4} Problem 4}
+
+
+\end{document}
