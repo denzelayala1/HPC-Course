@@ -15,6 +15,12 @@
 \usepackage{color, colortbl}
 \usepackage{amsbsy}
 \usepackage{pgfplots}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[]{cancel}
+
 
 \pgfplotsset{compat=1.11}
 \usetikzlibrary{calc}
@@ -119,32 +125,93 @@
 
             \item \textbf{Design the Algorithm}
             
-                Below is the general architecture of the program:
+            There are 3 parts to the problem. First you need to calculate the Mandelbrot series for a given point. The second part is to loop through each point in the plot. The step size may change based on how much resolution is desired. The final part is to calculate the area of the plot that converged. This was broken up into 3 algorithms as listed below. 
 
-                Main()$\lbrace$ \\
-                    call mesh-generator(x-res, y-res, vector) \\
-                    call area-finder(vector) \\
-                $\rbrace$
+            \begin{algorithm}
+                \caption{Mandelbrot Series Calculator}
                 
-                mesh-generator()$\lbrace$ \\
-                    for y in range -2,2 $\lbrace$
+                \begin{algorithmic}
+                    
+                    \Require $z_0 = 0$
+                    \For{$0 \leq i \leq 10,000$}
 
-                    for x in range -1,1 $\lbrace$
-                        calc-series-convergence(c)
+                    \State $z_{i+1} = z^{2}_{i} + c$
+                    \If{$|z_{i+1}| > 2  $} 
+                    \State Return $i$
+                    \EndIf
+                    \EndFor
 
-                $\rbrace \rbrace \rbrace$
+                    \If{$z\leq 2$ after loop}
+                        \State Return 0
+                    \EndIf
+                \end{algorithmic}
+            \end{algorithm}
+            
+            \begin{algorithm}
+                \caption{Mesh Generator}
+                
+                \begin{algorithmic}
+                    
+                    \Require mesh$[~] \gets$ Max Points \Comment{a vector that holds all data points}
+                    \Ensure c is \textbf{ALWAYS} a point on the complex plane
+                    \For{$-1 \leq j \leq 1$ } \Comment{This is counting through y}
+                        \For{$-2 \leq i \leq 2$} \Comment{This is counting through x}
+                            \State mesh$[i] \gets MandelbrotSeries(c)$ \Comment{input is c}
+                            \State $c \gets c+1 $
+                        \EndFor
+                    \EndFor
+                \end{algorithmic}
+            \end{algorithm}
 
-                area-finder()$\lbrace$
-                for integer in each vector cell$\lbrace$
-                    if integer == 0 count+=1 $\rbrace$ 
-
-                count/vector-size
-                $\rbrace$
+            
+            \begin{algorithm}
+                \caption{Area Finder}
+                \begin{algorithmic}
+                    \Require totArea \&  mesh[size] are constant 
+                    \For{$i$ in mesh$[~]$}
+                        \If{mesh$[i] = 0$}
+                            \State Count $\mathrel{+}= 1$
+                        \EndIf
+                    \EndFor
+                    \State Return $Area = totArea\left(\frac{Count}{mesh[size]}\right)$
+                \end{algorithmic}
+            \end{algorithm}
 
 
             \item \textbf{Implement the Algorithm / Test and Verify the Completed Program}
             
-                The algorithm compiled and ran. The output text files were put into python and turned into matrices that were plotted using matplotlib in python. 
+                The algorithm compiled and ran. The output text files were put into python and turned into matrices that were plotted using Matplotlib in python. The resolutions were separated by an order of magnitude. The low resolution plot divided the x \textbf{and} y axis into 10 pixels. The middle resolution into 100 pixels, and the high resolution divided it into 1000 pixels. 
+
+                \begin{figure}
+                    \centering
+
+                        \begin{subfigure}[b]{0.47\textwidth}
+                        \includegraphics[width=\textwidth]{Low.png}\hfill
+                        \caption{10x10 resolution}
+                        \label{fig:low-res}
+                        \end{subfigure}
+                        \hfill
+                        \begin{subfigure}[b]{0.47\textwidth}
+                            \includegraphics[width=\textwidth]{Mid.png}\hfill
+                            \caption{100x100 resolution}
+                            \label{fig:mid-res}
+                        \end{subfigure}
+
+                        \begin{subfigure}[b]{0.47\textwidth}
+                            \includegraphics[width=\textwidth]{Linear_Scale.png}\hfill
+                            \caption{1000x1000 Linear}
+                            \label{fig:lin-res}
+                        \end{subfigure}
+                        \hfill
+                        \begin{subfigure}[b]{0.47\textwidth}
+                            \includegraphics[width=\textwidth]{High.png}\hfill
+                            \caption{1000x1000 resolution}
+                            \label{fig:high-res}
+                        \end{subfigure}
+                \end{figure}
+
+                In these images the white corresponds to a convergent pixel. While at the low resolution there is some resemblance to the general shape of the MB series, as the grid resolution increases more details of the fractal come into focus. As soon as the mid resolution the more detailed fine structures of the MB set can be seen. At the high resolution the image has take its iconic look. The images were plotted on a logarithmic color scale. There are several points along the ``edge'' of the fractal pattern that take several thousand iterations to converge. As a result the linear color scale plot is flat and uninformative. This is becasue the majority of points converge within a couple hundred iterations. The area calculations showed that as the resolution increased the area decreased and converged towards 1.86 units.
+
 
                 \begin{center}
                 \begin{tikzpicture}
@@ -162,26 +229,68 @@
                     \end{axis}
                     \end{tikzpicture}
                 \end{center}
-            
+
 
         \end{enumerate}
-
-
-
-                HIGH SPIN AND LOW SPIN STATES INORGANIC CHEMISTRY USE GROUP THEORY AND CRYSTAL FIELD THEORY TO DESCRIBE THIS. HUNDS RULE VS PAULI EXCLUSION TUNABILITY USING \ldots
-
-            
-            \begin{gather*}
-                n \: \text{bits} = \left(x \: \text{bytes}\right) \left(y \: \frac{\text{bits}}{\text{byte}}\right) \\
-                \text{MAX\_RANGE} = 2^{n}
-            \end{gather*}
-
-            
-
         
     \section*{\label{sec:prob3} Problem 3}
 
+        
+        \begin{gather*}
+            \text{let  } avg = \frac{\text{average cycles}}{\text{word access}} = f_c \times \frac{\text{cache cycles}}{\text{word access}} + (1-f_c) \frac{\text{main memory cycles}}{\text{word access}} \\ 
+            \\
+            \text{FLOPS} = \frac{2.3\text{GHz } \rho_{wm}}{avg} 
+            \\
+            \text{units:  } \frac{\text{\( \cancel{cycles}\)}}{s} \frac{flop}{\text{\( \cancel{word access} \)}} \frac{\text{\( \cancel{word access} \)}}{\text{\( \cancel{cycles}\)}}
+        \end{gather*}
+
+        Rearranging all the equations and plugging in given constants we get a final equation as seen below.
+        \begin{gather*}
+            \text{FLOPS} = \frac{2\times 2.3\mathrm{E}{-10}}{2f_c+100(1-f_c)}\frac{flop}{s}
+        \end{gather*}
+        The answers will be given without showing the plugin step.
+
+        \begin{enumerate}
+            \item $6.66\mathrm{E}{8}~\frac{flop}{s}$ 
+            \item $9.02\mathrm{E}{7}~\frac{flop}{s}$
+            \item $4.84\mathrm{E}{7}~\frac{flop}{s}$
+            \item Plot given below.
+            
+
+
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        enlargelimits=true,
+                        ymode=log,
+                        log ticks with fixed point,
+                        xlabel={\% cache hits rate},
+                        ylabel={FLOPS},
+                        xmin=0, xmax=100,
+                        ymin=0, ymax= 1000000000
+                    ]
+                    \addplot table[col sep=comma,row sep=crcr] {
+                        5, 48400000 \\
+                        50, 90200000 \\
+                        95, 666000000 \\
+                    };
+                    \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+
+            \item  The system with 95\% cache hit rate has the best performance. It is able to complete an order of magnitude more floating point operations per second than the 50\% cache hit rate system.
+            
+        \end{enumerate}
+
+        
     \section*{\label{sec:prob4} Problem 4}
+
+    \begin{enumerate}
+        \item L1 cache $<$ L2 cache $<$ main memory
+        \item main memory $<$ L2 cache $\leq$ L1 cache
+        \item Let us think of data as water that needs to be transported. If we work with the assumption that all water being transported is moving at a \textbf{constant} rate we can look at latency and bandwidth as properties of an empty pipe that transports the water. Latency is the length of the pipe from your starting point to your end point. The longer the pipe is the longer the delay till water starts flowing out the end point. So low latency means your data gets moved faster. On the other hand bandwidth is akin to the width of the pipe. A larger pipe can transport \textbf{more} water over the same length of pipe. This makes it so that even if you have a large latency you can still transfer a lot of data/water. \\
+        Low latency and high bandwidth would give the fastest performance. In practice this can be difficult to achieve.
+    \end{enumerate}
 
 
 \end{document}
