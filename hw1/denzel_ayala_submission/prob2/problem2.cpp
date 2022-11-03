@@ -18,7 +18,7 @@ uint32_t mbseries(complex<double> c){
         z = z*z + c;
 
         if(abs(z) > 2){
-            return i;
+            return i+1;
         } 
 
     }
