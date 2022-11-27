@@ -1,8 +1,31 @@
 #ignore all text, executables, and logs
+*
+!*/
+!*.*
+!Makefile
+
+
 *.txt
 *.log
 *.exe
 test*
+*.png
+*.jpg
+*.zip 
+*.tar.gz
+*.pdf
+*submission*
+.vscode
+*.aux
+*.auxlock
+*.dth
+*.fdb_latexmk
+*.fls
+*.gz
+*.md5
+*test*/
+
+
 
 # juptyer notebooks
 .ipynb_checkpoints/
